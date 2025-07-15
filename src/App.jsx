@@ -1,35 +1,18 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import SearchBar from "./components/SearchBar";
+import WeatherDetails from "./components/WeatherDetails";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className="flex h-screen w-full items-center justify-center">
+      <div className="bg-dull-lavender-500/30 w-full max-w-lg rounded-lg border p-6 shadow-lg backdrop-blur-md">
+        <SearchBar />
+        <WeatherDetails />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </main>
   );
 }
 
 export default App;
+
+//API KEY
+// 2643e51d9ed12fc4d4390c78751a2d1a
