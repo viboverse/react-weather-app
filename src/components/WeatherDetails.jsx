@@ -1,54 +1,96 @@
-import forecastData from "../forcast.json";
+import { useEffect, useState } from "react";
+import ForcastItem from "./ForcastItem";
+import fetchWeatherData from "../utils/fetchWeatherData";
 
-export default function WeatherDetails() {
-  const dailyForecast = forecastData.list.filter((item) => {
-    return item.dt_txt.includes("12:00:00");
-  });
+const apiKey = import.meta.env.VITE_API_KEY;
 
-  const formattedDate = new Date(
-    forecastData.list[0].dt_txt,
-  ).toLocaleDateString("en-US", {
+export default function WeatherDetails({ data }) {
+  const [forecastData, setForecastData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // Get the current city name from the data prop
+  const cityName = data?.name;
+
+  // Format current date
+  const formattedDate = new Date().toLocaleDateString("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
   });
 
+  // Extract daily forecasts at noon
+  const dailyForecast = forecastData?.list
+    ? forecastData.list.filter((item) => item.dt_txt.includes("12:00:00"))
+    : [];
+
+  useEffect(() => {
+    if (!cityName) return;
+
+    async function fetchForecast() {
+      setLoading(true);
+      setError("");
+      try {
+        const response = await fetchWeatherData(cityName, apiKey, "forecast");
+        setForecastData(response);
+      } catch (error) {
+        setError("Failed to fetch forecast data. Please try again later.");
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchForecast();
+  }, [cityName]);
+
   return (
     <div className="flex flex-col text-center">
-      <h2 className="m-4 font-semibold">{forecastData.city.name}</h2>
+      <h2 className="m-4 font-semibold">{cityName}</h2>
       <p>{formattedDate}</p>
 
       <div className="flex items-center justify-center space-x-4">
-        <p className="order-1">{forecastData.list[0].main.temp}°C</p>
-
+        <p className="order-1">{Math.round(data.main.temp)}°C</p>
         <img
-          className="h-16 w-16 bg-red-300"
-          src={`https://openweathermap.org/img/wn/${forecastData.list[0].weather[0].icon}@2x.png`}
-          alt={forecastData.list[0].weather[0].description}
+          className="h-16 w-16"
+          src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+          alt={data.weather[0].description}
         />
       </div>
 
+      {/* Forecast section */}
       <div>
-        <h3 className="mb-4">5-Day Forecast</h3>
-        <ul className="flex space-x-4">
-          {dailyForecast.map((day, index) => {
-            const iconUrl = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
-            const date = new Date(day.dt_txt).toLocaleDateString("en-US", {
-              weekday: "short",
-            });
+        <h3 className="mt-4 mb-4">5-Day Forecast</h3>
 
-            return (
-              <li key={index} className="text-center">
-                <p>{date}</p>
-                <img src={iconUrl} alt={day.weather[0].description} />
-                <p>
-                  {Math.round(day.main.temp_min)}° /{" "}
-                  {Math.round(day.main.temp_max)}°
-                </p>
-              </li>
-            );
-          })}
-        </ul>
+        {loading && <p className="text-amber-500">Loading forecast...</p>}
+
+        {!loading && error && <p className="text-red-500">{error}</p>}
+
+        {!loading && !error && dailyForecast.length > 0 && (
+          <ul className="flex justify-center space-x-4">
+            {dailyForecast.map((day) => {
+              const forecastIconUrl = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
+              const date = new Date(day.dt_txt).toLocaleDateString("en-US", {
+                weekday: "short",
+              });
+              console.log(day);
+
+              return (
+                <ForcastItem
+                  key={day.dt}
+                  date={date}
+                  iconUrl={forecastIconUrl}
+                  temp={Math.round(day.main.temp)}
+                  altImage={day.weather[0].description}
+                />
+              );
+            })}
+          </ul>
+        )}
+
+        {!loading && !error && dailyForecast.length === 0 && (
+          <p>No forecast data available</p>
+        )}
       </div>
     </div>
   );

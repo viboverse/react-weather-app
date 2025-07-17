@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
   const [enteredCity, setEnetereCity] = useState("");
 
   function handleInputChange(event) {
@@ -12,6 +12,7 @@ export default function SearchBar() {
 
     console.log(enteredCity);
 
+    onSearch(enteredCity);
     setEnetereCity("");
   }
   return (
