@@ -28,21 +28,21 @@
   --color-dull-lavender-900: #5c2a88;
   --color-dull-lavender-950: #3a1a5b;
 
-  --color-royal-purple-50: #f9f6fe;
-  --color-royal-purple-100: #f0eafd;
-  --color-royal-purple-200: #e4d9fb;
-  --color-royal-purple-300: #d0bcf6;
-  --color-royal-purple-400: #b290f0;
-  --color-royal-purple-500: #9566e6;
-  --color-royal-purple-600: #7d46d7;
-  --color-royal-purple-700: #6934bc;
-  --color-royal-purple-800: #6032a4;
-  --color-royal-purple-900: #4b277c;
-  --color-royal-purple-950: #2f115a;
+  --color-electric-violet-50: #f4f2ff;
+  --color-electric-violet-100: #ebe7ff;
+  --color-electric-violet-200: #d8d2ff;
+  --color-electric-violet-300: #bcadff;
+  --color-electric-violet-400: #9c7fff;
+  --color-electric-violet-500: #7e4bff;
+  --color-electric-violet-600: #6f27ff;
+  --color-electric-violet-700: #6921ed;
+  --color-electric-violet-800: #5011c6;
+  --color-electric-violet-900: #4410a2;
+  --color-electric-violet-950: #27076e;
 }
 
 body {
-  font-family: "Roboto";
+  font-family: "Poppins", sans-serif;
   background: url("./assets/clouds.jpg") no-repeat center fixed;
   background-size: cover;
 }

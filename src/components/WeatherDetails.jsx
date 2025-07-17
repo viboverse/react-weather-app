@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ForcastItem from "./ForcastItem";
 import fetchWeatherData from "../utils/fetchWeatherData";
+import { motion } from "motion/react";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -9,7 +10,6 @@ export default function WeatherDetails({ data }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Get the current city name from the data prop
   const cityName = data?.name;
 
   // Format current date
@@ -19,7 +19,6 @@ export default function WeatherDetails({ data }) {
     day: "numeric",
   });
 
-  // Extract daily forecasts at noon
   const dailyForecast = forecastData?.list
     ? forecastData.list.filter((item) => item.dt_txt.includes("12:00:00"))
     : [];
@@ -41,43 +40,72 @@ export default function WeatherDetails({ data }) {
       }
     }
 
+    console.log(data);
+
     fetchForecast();
   }, [cityName]);
 
   return (
     <div className="flex flex-col text-center">
-      <h2 className="m-4 font-semibold">{cityName}</h2>
-      <p>{formattedDate}</p>
+      <h2 className="font-poppins m-4 text-4xl font-bold text-gray-800">
+        {cityName}
+      </h2>
+      <p className="text-xl font-medium text-gray-700">{formattedDate}</p>
 
       <div className="flex items-center justify-center space-x-4">
-        <p className="order-1">{Math.round(data.main.temp)}°C</p>
-        <img
-          className="h-16 w-16"
-          src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-          alt={data.weather[0].description}
-        />
+        <p className="order-1 text-5xl font-semibold text-blue-600">
+          {Math.round(data.main.temp)}°C
+        </p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <motion.img
+            className="h-30 w-30"
+            src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+            alt={data.weather[0].description}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2, ease: "backInOut" }}
+            whileHover={{ scale: 1.2 }}
+          />
+        </motion.div>
       </div>
 
-      {/* Forecast section */}
-      <div>
-        <h3 className="mt-4 mb-4">5-Day Forecast</h3>
+      <div className="mb-4 flex flex-col items-center">
+        <p className="text-lg tracking-wide text-gray-700 capitalize">
+          {data.weather[0].description}
+        </p>
+        <p className="mt-2 inline-block rounded-lg bg-blue-100 px-4 py-1 text-xl font-semibold text-blue-700 shadow-sm">
+          Feels Like: {Math.round(data.main.feels_like)}°C
+        </p>
+      </div>
 
-        {loading && <p className="text-amber-500">Loading forecast...</p>}
+      <div>
+        <h3 className="mt-4 text-xl font-bold text-gray-700">5-Day Forecast</h3>
+
+        {loading && (
+          <p className="text-2xl font-medium text-green-500">
+            Loading forecast...
+          </p>
+        )}
 
         {!loading && error && <p className="text-red-500">{error}</p>}
 
         {!loading && !error && dailyForecast.length > 0 && (
-          <ul className="flex justify-center space-x-4">
-            {dailyForecast.map((day) => {
+          <ul className="flex justify-center space-x-4 p-8 text-white">
+            {dailyForecast.map((day, index) => {
               const forecastIconUrl = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
               const date = new Date(day.dt_txt).toLocaleDateString("en-US", {
                 weekday: "short",
               });
-              console.log(day);
 
               return (
                 <ForcastItem
                   key={day.dt}
+                  index={index}
                   date={date}
                   iconUrl={forecastIconUrl}
                   temp={Math.round(day.main.temp)}
@@ -89,7 +117,9 @@ export default function WeatherDetails({ data }) {
         )}
 
         {!loading && !error && dailyForecast.length === 0 && (
-          <p>No forecast data available</p>
+          <p className="text-lg font-medium text-gray-600">
+            No forecast data available
+          </p>
         )}
       </div>
     </div>
