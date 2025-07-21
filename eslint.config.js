@@ -25,7 +25,7 @@ export default [
     rules: {
       "no-unused-vars": "warn",
       semi: ["error", "always"],
-      "no-console": "off",
+      "no-console": "warn",
       // 🚨 THIS disables the React-in-scope error
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",

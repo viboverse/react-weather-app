@@ -34,13 +34,10 @@ export default function WeatherDetails({ data }) {
         setForecastData(response);
       } catch (error) {
         setError("Failed to fetch forecast data. Please try again later.");
-        console.error(error);
       } finally {
         setLoading(false);
       }
     }
-
-    console.log(data);
 
     fetchForecast();
   }, [cityName]);
