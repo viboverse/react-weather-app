@@ -15,9 +15,12 @@ export default function SearchBar({ onSearch }) {
     setEnetereCity("");
   }
   return (
-    <form className="flex items-center justify-around" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col items-center justify-around sm:flex-row"
+      onSubmit={handleSubmit}
+    >
       <input
-        className="border-electric-violet-700 focus:bg-electric-violet-300 mb-2 w-96 rounded-lg border-1 p-2 shadow-lg outline-none placeholder:italic"
+        className="border-electric-violet-700 focus:bg-electric-violet-300 mb-2 w-full rounded-lg border-1 p-4 shadow-lg outline-none placeholder:italic sm:w-3/4"
         type="text"
         value={enteredCity}
         placeholder="Enter a city name..."

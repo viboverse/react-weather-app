@@ -33,7 +33,7 @@ function App() {
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
-      <div className="bg-dull-lavender-300/40 h-auto w-full max-w-2xl rounded-lg border-white p-8 shadow-lg backdrop-blur-md">
+      <div className="bg-dull-lavender-300/40 border-dull-lavender-400 w-full max-w-2xl rounded-lg border p-6 shadow-lg backdrop-blur-xl">
         <SearchBar onSearch={fetchWeather} />
         {error && (
           <p className="m-2 rounded-md bg-red-200 p-2 text-center text-lg font-medium text-red-600 shadow-md">

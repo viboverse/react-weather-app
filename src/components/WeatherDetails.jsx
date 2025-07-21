@@ -52,27 +52,22 @@ export default function WeatherDetails({ data }) {
       </h2>
       <p className="text-xl font-medium text-gray-700">{formattedDate}</p>
 
-      <div className="flex items-center justify-center space-x-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: "backInOut" }}
+        whileHover={{ scale: 1.2 }}
+        className="flex flex-col items-center justify-center space-x-4 sm:flex-row"
+      >
         <p className="order-1 text-5xl font-semibold text-blue-600">
           {Math.round(data.main.temp)}°C
         </p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <motion.img
-            className="h-30 w-30"
-            src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-            alt={data.weather[0].description}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2, ease: "backInOut" }}
-            whileHover={{ scale: 1.2 }}
-          />
-        </motion.div>
-      </div>
+        <img
+          className="h-30 w-30"
+          src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+          alt={data.weather[0].description}
+        />
+      </motion.div>
 
       <div className="mb-4 flex flex-col items-center">
         <p className="text-lg tracking-wide text-gray-700 capitalize">
@@ -95,7 +90,7 @@ export default function WeatherDetails({ data }) {
         {!loading && error && <p className="text-red-500">{error}</p>}
 
         {!loading && !error && dailyForecast.length > 0 && (
-          <ul className="flex justify-center space-x-4 p-8 text-white">
+          <ul className="flex flex-wrap justify-center gap-4 p-4">
             {dailyForecast.map((day, index) => {
               const forecastIconUrl = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
               const date = new Date(day.dt_txt).toLocaleDateString("en-US", {
