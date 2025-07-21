@@ -20,8 +20,8 @@ A responsive weather application built with React that displays current weather 
 ## Screenshots
 
 <div style="display: flex; gap: 10px;">
-  <img src="public/screenshots/desktop.png" alt="Desktop View" width="300" />
   <img src="public/screenshots/mobile.png" alt="Mobile View" width="300" />
+  <img src="public/screenshots/desktop.png" alt="Desktop View" width="300" />
 </div>
 
 ## Live Demo
