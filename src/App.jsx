@@ -33,7 +33,7 @@ function App() {
   }, []);
 
   return (
-    <main className="flex h-screen w-full items-center justify-center">
+    <main className="flex min-h-screen w-full items-center justify-center">
       <ForcastCard>
         <SearchBar onSearch={fetchWeather} />
         {error && (
