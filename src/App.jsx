@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import WeatherDetails from "./components/WeatherDetails";
 import fetchWeatherData from "./utils/fetchWeatherData";
+import ForcastCard from "./components/ForcastCard";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
-      <div className="bg-dull-lavender-300/40 border-dull-lavender-400 w-full max-w-2xl rounded-lg border p-6 shadow-lg backdrop-blur-xl">
+      <ForcastCard>
         <SearchBar onSearch={fetchWeather} />
         {error && (
           <p className="m-2 rounded-md bg-red-200 p-2 text-center text-lg font-medium text-red-600 shadow-md">
@@ -42,7 +43,7 @@ function App() {
         )}
         {loading && <p className="text-center text-amber-500">Loading....</p>}
         {weatherData && !loading && <WeatherDetails data={weatherData} />}
-      </div>
+      </ForcastCard>
     </main>
   );
 }

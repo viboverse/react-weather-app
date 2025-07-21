@@ -19,5 +19,3 @@ export default function ForcastItem({ date, iconUrl, altImage, temp, index }) {
     </motion.li>
   );
 }
-
-//      className="flex flex-col items-center rounded-lg bg-blue-500 p-4 shadow-md hover:bg-blue-600"
