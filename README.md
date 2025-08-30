@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://react-weather-app-indol-five.vercel.app/"><strong>Check out the live demo »</strong></a>
+  <a href="https://react-weather-app-indol-five.vercel.app/" target='_blank'><strong>Check out the live demo »</strong></a>
 </p>
 
 </div>
