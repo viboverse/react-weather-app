@@ -5,8 +5,6 @@
 <p>
   <img src="https://img.shields.io/badge/node-v18.18.0-green" alt="Node.js version">
   <img src="https://img.shields.io/badge/npm-v9.0.0-blue" alt="NPM version">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions welcome">
   <a href="https://react-weather-app-indol-five.vercel.app" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/Powered%20by-Vercel-black" alt="Powered by Vercel">
   </a>
@@ -17,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://react-weather-app-indol-five.vercel.app/" target="_blank" rel="noopener noreferrer"><strong>Check out the live demo »</strong></a>
+  <a href="https://react-weather-app-indol-five.vercel.app/" target="_blank"><strong>Check out the live demo »</strong></a>
 </p>
 
 </div>
